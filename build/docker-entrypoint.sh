@@ -54,7 +54,7 @@ load_secret EMAIL ${EMAIL}
 log "entering infinite loop. executing certbot every 12 hours"
 while true; do
     log "executing certbot for the domain(s) ${DOMAIN}"
-    certbot certonly --non-interactive --manual-public-ip-logging-ok --agree-tos \
+    certbot certonly --non-interactive --manual-public-ip-logging-ok --agree-tos --expand \
         --manual --preferred-challenges=dns --manual-auth-hook /authenticator.sh --manual-cleanup-hook /cleanup.sh \
         -m ${EMAIL} -d ${DOMAIN}
 
