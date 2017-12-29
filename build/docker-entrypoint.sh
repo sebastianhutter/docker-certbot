@@ -51,12 +51,13 @@ load_secret EMAIL ${EMAIL}
 [ -z "${DOMAIN}" ] && log "DOMAIN not specified. aborting" && exit 1
 [ -z "${EMAIL}" ] && log "EMAIL not specified. aborting" && exit 1
 
-log "entering infinite loop. executing certbot every 24hours"
+log "entering infinite loop. executing certbot every 12 hours"
 while true; do
     log "executing certbot for the domain(s) ${DOMAIN}"
     certbot certonly --non-interactive --manual-public-ip-logging-ok --agree-tos \
         --manual --preferred-challenges=dns --manual-auth-hook /authenticator.sh --manual-cleanup-hook /cleanup.sh \
         -m ${EMAIL} -d ${DOMAIN}
 
-    sleep 86400
+    log "certbot run finished. waiting for 12h for the run"
+    sleep 43200
 done
